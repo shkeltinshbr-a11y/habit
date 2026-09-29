@@ -401,6 +401,23 @@ function renderHeader() {
 
 function toggleAddHabitPanel() {
 
+    console.log("HABIT: ADD HABIT clicked");
+
+    const isHidden =
+        addHabitPanel.classList.contains("hidden");
+
+    addHabitPanel.classList.toggle(
+        "hidden",
+        !isHidden
+    );
+
+    if (isHidden) {
+        setTimeout(() => {
+            habitInput.focus();
+        }, 100);
+    }
+}function toggleAddHabitPanel() {
+
     const isHidden =
         addHabitPanel.classList.contains(
             "hidden"
@@ -1187,3 +1204,11 @@ function escapeHtml(value) {
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
 }
+
+console.log("HABIT: calendar.js loaded");
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("HABIT: DOM loaded");
+    initialize();
+});
+
