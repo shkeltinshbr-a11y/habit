@@ -1,1 +1,185 @@
-index
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>Habit Calendar</title>
+
+    <link rel="stylesheet" href="Design/design.css">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <!-- =========================
+             WELCOME
+             ========================= -->
+
+        <section id="welcomeScreen" class="screen welcome-screen">
+
+            <div class="welcome-content">
+
+                <div class="brand">
+                    HABIT
+                </div>
+
+                <div class="welcome-title">
+                    Stay consistent.
+                </div>
+
+                <div class="welcome-subtitle">
+                    Never miss two days in a row.
+                </div>
+
+                <div class="name-form">
+
+                    <label for="nameInput">
+                        YOUR NAME
+                    </label>
+
+                    <input
+                        id="nameInput"
+                        type="text"
+                        maxlength="30"
+                        autocomplete="name"
+                        placeholder="Enter your name"
+                    >
+
+                    <button id="continueButton" type="button">
+                        CONTINUE
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             HABITS
+             ========================= -->
+
+        <section id="habitScreen" class="screen habit-screen hidden">
+
+            <header class="app-header">
+
+                <div>
+                    <div class="brand">
+                        HABIT
+                    </div>
+
+                    <div id="greeting" class="greeting">
+                        Good day
+                    </div>
+                </div>
+
+                <div id="currentMonth" class="current-month">
+                    SEPTEMBER 2026
+                </div>
+
+            </header>
+
+
+            <section class="habit-intro">
+
+                <div>
+                    <div class="section-label">
+                        YOUR HABITS
+                    </div>
+
+                    <h1>
+                        Stay consistent.
+                    </h1>
+                </div>
+
+                <button
+                    id="addHabitButton"
+                    class="add-habit-button"
+                    type="button"
+                >
+                    <span>+</span>
+                    ADD HABIT
+                </button>
+
+            </section>
+
+
+            <!-- =========================
+                 ADD HABIT FORM
+                 ========================= -->
+
+            <section
+                id="addHabitPanel"
+                class="add-habit-panel hidden"
+            >
+
+                <div class="panel-title">
+                    NEW HABIT
+                </div>
+
+                <div class="habit-input-row">
+
+                    <input
+                        id="habitInput"
+                        type="text"
+                        maxlength="50"
+                        placeholder="e.g. Running"
+                    >
+
+                    <button
+                        id="saveHabitButton"
+                        type="button"
+                    >
+                        ADD
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 HABITS LIST
+                 ========================= -->
+
+            <section
+                id="habitsList"
+                class="habits-list"
+            ></section>
+
+
+            <!-- =========================
+                 EMPTY STATE
+                 ========================= -->
+
+            <section
+                id="emptyState"
+                class="empty-state"
+            >
+
+                <div class="empty-title">
+                    NO HABITS YET
+                </div>
+
+                <div class="empty-text">
+                    Add your first habit and start building consistency.
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <script type="module" src="Module/calendar.js"></script>
+
+</body>
+</html>
