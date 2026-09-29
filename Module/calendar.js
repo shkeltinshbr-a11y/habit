@@ -26,30 +26,6 @@ let habits = [];
 
 
 /* =========================================================
-   START APPLICATION
-   ========================================================= */
-
-document.addEventListener("DOMContentLoaded", initialize);
-
-
-function initialize() {
-
-    cacheElements();
-
-    loadUser();
-    loadHabits();
-
-    bindEvents();
-
-    if (userName) {
-        showHabitScreen();
-    } else {
-        showWelcomeScreen();
-    }
-}
-
-
-/* =========================================================
    DOM ELEMENTS
    ========================================================= */
 
@@ -72,65 +48,153 @@ let habitsList;
 let emptyState;
 
 
+/* =========================================================
+   START APPLICATION
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initialize
+);
+
+
+function initialize() {
+
+    const elementsReady =
+        cacheElements();
+
+    if (!elementsReady) {
+
+        console.error(
+            "HABIT: application initialization failed."
+        );
+
+        return;
+    }
+
+
+    loadUser();
+
+    loadHabits();
+
+    bindEvents();
+
+
+    if (userName) {
+
+        showHabitScreen();
+
+    } else {
+
+        showWelcomeScreen();
+    }
+}
+
+
+/* =========================================================
+   DOM CACHE
+   ========================================================= */
+
 function cacheElements() {
 
     welcomeScreen =
-        document.getElementById("welcomeScreen");
+        document.getElementById(
+            "welcomeScreen"
+        );
 
     habitScreen =
-        document.getElementById("habitScreen");
+        document.getElementById(
+            "habitScreen"
+        );
+
 
     nameInput =
-        document.getElementById("nameInput");
+        document.getElementById(
+            "nameInput"
+        );
 
     continueButton =
-        document.getElementById("continueButton");
+        document.getElementById(
+            "continueButton"
+        );
+
 
     greeting =
-        document.getElementById("greeting");
+        document.getElementById(
+            "greeting"
+        );
 
     currentMonth =
-        document.getElementById("currentMonth");
+        document.getElementById(
+            "currentMonth"
+        );
+
 
     addHabitButton =
-        document.getElementById("addHabitButton");
+        document.getElementById(
+            "addHabitButton"
+        );
 
     addHabitPanel =
-        document.getElementById("addHabitPanel");
+        document.getElementById(
+            "addHabitPanel"
+        );
+
 
     habitInput =
-        document.getElementById("habitInput");
+        document.getElementById(
+            "habitInput"
+        );
 
     saveHabitButton =
-        document.getElementById("saveHabitButton");
+        document.getElementById(
+            "saveHabitButton"
+        );
+
 
     habitsList =
-        document.getElementById("habitsList");
+        document.getElementById(
+            "habitsList"
+        );
 
     emptyState =
-        document.getElementById("emptyState");
+        document.getElementById(
+            "emptyState"
+        );
 
 
     const requiredElements = [
+
         welcomeScreen,
         habitScreen,
+
         nameInput,
         continueButton,
+
         greeting,
         currentMonth,
+
         addHabitButton,
         addHabitPanel,
+
         habitInput,
         saveHabitButton,
+
         habitsList,
         emptyState
     ];
 
 
-    if (requiredElements.some(element => !element)) {
+    const missingElement =
+        requiredElements.some(
+            element => !element
+        );
+
+
+    if (missingElement) {
 
         console.error(
-            "HABIT: one or more required HTML elements were not found."
+            "HABIT: required HTML element is missing."
         );
 
         return false;
@@ -147,11 +211,6 @@ function cacheElements() {
 
 function bindEvents() {
 
-    if (!continueButton) {
-        return;
-    }
-
-
     continueButton.addEventListener(
         "click",
         handleNameSubmit
@@ -163,6 +222,7 @@ function bindEvents() {
         event => {
 
             if (event.key === "Enter") {
+
                 event.preventDefault();
 
                 handleNameSubmit();
@@ -188,6 +248,7 @@ function bindEvents() {
         event => {
 
             if (event.key === "Enter") {
+
                 event.preventDefault();
 
                 handleAddHabit();
@@ -262,6 +323,7 @@ function loadHabits() {
 
 
         if (!Array.isArray(habits)) {
+
             habits = [];
         }
 
@@ -302,24 +364,35 @@ function saveHabits() {
 
 function showWelcomeScreen() {
 
-    welcomeScreen.classList.remove("hidden");
+    welcomeScreen.classList.remove(
+        "hidden"
+    );
 
-    habitScreen.classList.add("hidden");
+    habitScreen.classList.add(
+        "hidden"
+    );
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        nameInput.focus();
+            nameInput.focus();
 
-    }, 100);
+        },
+        100
+    );
 }
 
 
 function showHabitScreen() {
 
-    welcomeScreen.classList.add("hidden");
+    welcomeScreen.classList.add(
+        "hidden"
+    );
 
-    habitScreen.classList.remove("hidden");
+    habitScreen.classList.remove(
+        "hidden"
+    );
 
 
     renderHeader();
@@ -348,9 +421,7 @@ function handleNameSubmit() {
 
     userName = value;
 
-
     saveUser();
-
 
     showHabitScreen();
 }
@@ -401,23 +472,6 @@ function renderHeader() {
 
 function toggleAddHabitPanel() {
 
-    console.log("HABIT: ADD HABIT clicked");
-
-    const isHidden =
-        addHabitPanel.classList.contains("hidden");
-
-    addHabitPanel.classList.toggle(
-        "hidden",
-        !isHidden
-    );
-
-    if (isHidden) {
-        setTimeout(() => {
-            habitInput.focus();
-        }, 100);
-    }
-}function toggleAddHabitPanel() {
-
     const isHidden =
         addHabitPanel.classList.contains(
             "hidden"
@@ -432,11 +486,14 @@ function toggleAddHabitPanel() {
 
     if (isHidden) {
 
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            habitInput.focus();
+                habitInput.focus();
 
-        }, 100);
+            },
+            100
+        );
     }
 }
 
@@ -461,26 +518,35 @@ function handleAddHabit() {
 
     const habit = {
 
-        id: createId(),
+        id:
+            createId(),
 
-        name: name,
+        name:
+            name,
 
         createdAt:
-            getDateKey(new Date()),
+            getDateKey(
+                new Date()
+            ),
 
-        completions: {},
+        completions:
+            {},
 
-        isOpen: true
+        isOpen:
+            true
     };
 
 
-    habits.unshift(habit);
+    habits.unshift(
+        habit
+    );
 
 
     saveHabits();
 
 
-    habitInput.value = "";
+    habitInput.value =
+        "";
 
 
     addHabitPanel.classList.add(
@@ -500,11 +566,13 @@ function deleteHabit(habitId) {
 
     const habit =
         habits.find(
-            item => item.id === habitId
+            item =>
+                item.id === habitId
         );
 
 
     if (!habit) {
+
         return;
     }
 
@@ -516,13 +584,15 @@ function deleteHabit(habitId) {
 
 
     if (!confirmed) {
+
         return;
     }
 
 
     habits =
         habits.filter(
-            item => item.id !== habitId
+            item =>
+                item.id !== habitId
         );
 
 
@@ -540,11 +610,13 @@ function toggleCalendar(habitId) {
 
     const habit =
         habits.find(
-            item => item.id === habitId
+            item =>
+                item.id === habitId
         );
 
 
     if (!habit) {
+
         return;
     }
 
@@ -563,39 +635,52 @@ function toggleCalendar(habitId) {
    TOGGLE DAY
    ========================================================= */
 
-function toggleDay(habitId, date) {
+function toggleDay(
+    habitId,
+    date
+) {
 
     const targetDate =
-        normalizeDate(date);
+        normalizeDate(
+            date
+        );
 
 
     const today =
-        normalizeDate(new Date());
+        normalizeDate(
+            new Date()
+        );
 
 
     if (targetDate > today) {
+
         return;
     }
 
 
     const habit =
         habits.find(
-            item => item.id === habitId
+            item =>
+                item.id === habitId
         );
 
 
     if (!habit) {
+
         return;
     }
 
 
-    const key =
-        getDateKey(targetDate);
-
-
     if (!habit.completions) {
+
         habit.completions = {};
     }
+
+
+    const key =
+        getDateKey(
+            targetDate
+        );
 
 
     if (
@@ -606,7 +691,8 @@ function toggleDay(habitId, date) {
 
     } else {
 
-        habit.completions[key] = true;
+        habit.completions[key] =
+            true;
     }
 
 
@@ -622,7 +708,8 @@ function toggleDay(habitId, date) {
 
 function renderHabits() {
 
-    habitsList.innerHTML = "";
+    habitsList.innerHTML =
+        "";
 
 
     emptyState.classList.toggle(
@@ -631,14 +718,20 @@ function renderHabits() {
     );
 
 
-    habits.forEach(habit => {
+    habits.forEach(
+        habit => {
 
-        const card =
-            createHabitCard(habit);
+            const card =
+                createHabitCard(
+                    habit
+                );
 
 
-        habitsList.appendChild(card);
-    });
+            habitsList.appendChild(
+                card
+            );
+        }
+    );
 }
 
 
@@ -646,10 +739,14 @@ function renderHabits() {
    CREATE HABIT CARD
    ========================================================= */
 
-function createHabitCard(habit) {
+function createHabitCard(
+    habit
+) {
 
     const card =
-        document.createElement("article");
+        document.createElement(
+            "article"
+        );
 
 
     card.className =
@@ -665,26 +762,37 @@ function createHabitCard(habit) {
 
 
     const header =
-        document.createElement("button");
+        document.createElement(
+            "button"
+        );
 
 
-    header.type = "button";
+    header.type =
+        "button";
+
 
     header.className =
         "habit-header";
 
 
     header.innerHTML = `
+
         <div class="habit-header-main">
 
             <div class="habit-name">
-                ${escapeHtml(habit.name)}
+                ${escapeHtml(
+                    habit.name
+                )}
             </div>
 
             <div class="habit-meta">
+
                 <span>
-                    ${getHabitMeta(habit)}
+                    ${getHabitMeta(
+                        habit
+                    )}
                 </span>
+
             </div>
 
         </div>
@@ -697,20 +805,29 @@ function createHabitCard(habit) {
 
     header.addEventListener(
         "click",
-        () => toggleCalendar(habit.id)
+        () =>
+            toggleCalendar(
+                habit.id
+            )
     );
 
 
-    card.appendChild(header);
+    card.appendChild(
+        header
+    );
 
 
     if (habit.isOpen) {
 
         const calendar =
-            createCalendar(habit);
+            createCalendar(
+                habit
+            );
 
 
-        card.appendChild(calendar);
+        card.appendChild(
+            calendar
+        );
     }
 
 
@@ -722,10 +839,14 @@ function createHabitCard(habit) {
    CREATE CALENDAR
    ========================================================= */
 
-function createCalendar(habit) {
+function createCalendar(
+    habit
+) {
 
     const container =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     container.className =
@@ -733,18 +854,24 @@ function createCalendar(habit) {
 
 
     const divider =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     divider.className =
         "calendar-divider";
 
 
-    container.appendChild(divider);
+    container.appendChild(
+        divider
+    );
 
 
     const monthTitle =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     monthTitle.className =
@@ -763,7 +890,9 @@ function createCalendar(habit) {
 
 
     const weekdays =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     weekdays.className =
@@ -800,7 +929,9 @@ function createCalendar(habit) {
 
 
     const grid =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     grid.className =
@@ -819,7 +950,9 @@ function createCalendar(habit) {
 
 
     const footer =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     footer.className =
@@ -833,7 +966,9 @@ function createCalendar(habit) {
 
 
     const stat =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     stat.className =
@@ -844,11 +979,15 @@ function createCalendar(habit) {
         `${statistics.completionRate}% completion · ${statistics.currentStreak} day streak`;
 
 
-    footer.appendChild(stat);
+    footer.appendChild(
+        stat
+    );
 
 
     const deleteButton =
-        document.createElement("button");
+        document.createElement(
+            "button"
+        );
 
 
     deleteButton.type =
@@ -991,7 +1130,9 @@ function renderMonthDays(
 
 
         cell.dataset.date =
-            getDateKey(date);
+            getDateKey(
+                date
+            );
 
 
         const today =
@@ -1001,8 +1142,11 @@ function renderMonthDays(
 
 
         if (
-            normalizeDate(date).getTime()
-            === today.getTime()
+            normalizeDate(
+                date
+            ).getTime()
+            ===
+            today.getTime()
         ) {
 
             cell.classList.add(
@@ -1040,14 +1184,18 @@ function renderMonthDays(
             "day-symbol";
 
 
-        if (status === "completed") {
+        if (
+            status === "completed"
+        ) {
 
             symbol.textContent =
                 "✓";
         }
 
 
-        if (status === "missed") {
+        if (
+            status === "missed"
+        ) {
 
             symbol.textContent =
                 "×";
@@ -1059,14 +1207,17 @@ function renderMonthDays(
         );
 
 
-        if (status !== "future") {
+        if (
+            status !== "future"
+        ) {
 
             cell.addEventListener(
                 "click",
-                () => toggleDay(
-                    habit.id,
-                    date
-                )
+                () =>
+                    toggleDay(
+                        habit.id,
+                        date
+                    )
             );
         }
 
@@ -1082,7 +1233,9 @@ function renderMonthDays(
    HABIT META
    ========================================================= */
 
-function getHabitMeta(habit) {
+function getHabitMeta(
+    habit
+) {
 
     const statistics =
         getHabitStatistics(
@@ -1098,10 +1251,14 @@ function getHabitMeta(habit) {
    DATE
    ========================================================= */
 
-function normalizeDate(date) {
+function normalizeDate(
+    date
+) {
 
     const value =
-        new Date(date);
+        new Date(
+            date
+        );
 
 
     return new Date(
@@ -1112,10 +1269,14 @@ function normalizeDate(date) {
 }
 
 
-function getDateKey(date) {
+function getDateKey(
+    date
+) {
 
     const value =
-        normalizeDate(date);
+        normalizeDate(
+            date
+        );
 
 
     const year =
@@ -1125,13 +1286,19 @@ function getDateKey(date) {
     const month =
         String(
             value.getMonth() + 1
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
 
 
     const day =
         String(
             value.getDate()
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
 
 
     return `${year}-${month}-${day}`;
@@ -1142,7 +1309,9 @@ function getDateKey(date) {
    MONTH FORMAT
    ========================================================= */
 
-function formatMonthYear(date) {
+function formatMonthYear(
+    date
+) {
 
     return new Intl.DateTimeFormat(
         "en-US",
@@ -1151,7 +1320,9 @@ function formatMonthYear(date) {
             year: "numeric"
         }
     )
-        .format(date)
+        .format(
+            date
+        )
         .toUpperCase();
 }
 
@@ -1195,20 +1366,29 @@ function createId() {
    HTML SAFETY
    ========================================================= */
 
-function escapeHtml(value) {
+function escapeHtml(
+    value
+) {
 
     return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 }
-
-console.log("HABIT: calendar.js loaded");
-
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("HABIT: DOM loaded");
-    initialize();
-});
-
